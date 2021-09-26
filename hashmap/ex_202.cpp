@@ -21,6 +21,7 @@ bool is_happy (int val)
             val = val / 10;
         }
         val = t;
+        cout << val << endl;
         if (val == 1)
             return true;
         if (records[val] == false)
@@ -33,7 +34,6 @@ bool is_happy (int val)
 
 int main ()
 {
-    cout << is_happy(1111111) << endl;
-    print_u(u);    
+    cout << is_happy(2) << endl;
     return 0;
 }
