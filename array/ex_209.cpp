@@ -28,9 +28,9 @@ int small_length_sum(vector<int> v, int val)
 
 void print_v(vector<int> v)
 {
-    for (int i = 0; i < v.size(); i++)
-        cout << v[i] << "\t";
-    cout << endl;
+	for (int i = 0; i < v.size(); i++)
+		cout << v[i] << "\t";
+	cout << endl;
 }
 
 int main()
