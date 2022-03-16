@@ -22,23 +22,24 @@ void print_tree(Treenode* n1)
 	print_tree(n1->right);
 }
 
-/* pre travelsal */
+/* pre taversal */
 vector<int> pre_travel(Treenode* root)
 {
 	stack<Treenode*> st;
 	vector<int> res;
-	Treenode *node = root;
-	if (!node)
+	Treenode *cur = root;
+	if (!cur)
 		return res;
 	st.push(root);
+
 	while (!st.empty()) {
-		node = st.top();		/* current node  */
-		res.push_back(node->val);
+		cur = st.top();		/* current node  */
+		res.push_back(cur->val);
 		st.pop();
-		if (node->right)
-			st.push(node->right);	/* right node */
-		if (node->left)
-			st.push(node->left);	/* left node */
+		if (cur->right)
+			st.push(cur->right);	/* right node */
+		if (cur->left)
+			st.push(cur->left);	/* left node */
 	}
 	return res;
 }
@@ -53,6 +54,7 @@ vector<int> in_travel(Treenode* root)
 	vector<int> result;
 	stack<Treenode*> st;
 	Treenode* cur = root;
+
 	while (cur != NULL || !st.empty()) {
 		if (cur != NULL) { /* find last left node */
 			st.push(cur);
@@ -67,7 +69,7 @@ vector<int> in_travel(Treenode* root)
 	return result;
 }
 
-/* postorder travelsal */
+/* postorder taversal */
 /* current, right, left --> reverse */
 vector<int> postorderTraversal(Treenode* root) {
 	stack<Treenode*> st;
@@ -75,6 +77,7 @@ vector<int> postorderTraversal(Treenode* root) {
 	if (root == NULL)
 		return result;
 	st.push(root);
+
 	while (!st.empty()) {
 		Treenode* node = st.top();
 		st.pop();
@@ -97,21 +100,22 @@ vector<vector<int>> level_traversal(Treenode* root)
 {
 	vector<vector<int>> res;
 	queue<Treenode*> que;
-	Treenode *node;
+	Treenode *cur;
 	if (!root)
 		return res;
 	que.push(root);
+	
 	while (!que.empty()) {
 		int size = que.size();
 		vector<int> vec;
 		for (int i = 0; i < size; i++) {
-			node = que.front();
-			vec.push_back(node->val);	// current node
+			cur = que.front();
+			vec.push_back(cur->val);	// current node
 			que.pop();
-			if (node->left)
-				que.push(node->left);	// left
-			if (node->right)
-				que.push(node->right);	// right
+			if (cur->left)
+				que.push(cur->left);	// left
+			if (cur->right)
+				que.push(cur->right);	// right
 		}
 		res.push_back(vec);
 	}
