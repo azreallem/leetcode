@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <stack>
 
 using namespace std;
@@ -11,14 +12,22 @@ struct TreeNode {
 
 void travel_tree(TreeNode *root)
 {
-	if (!root)
-		return ;
-	cout << root->val << '\t';
-	if (root->left)
-		travel_tree(root->left);
-	if (root->right)
-		travel_tree(root->right);
 }
+
+namespace std {
+	ostream& operator<<(ostream &os, const TreeNode *root)
+	{
+		if (!root)
+			return os;
+		os << root->val << ", ";
+		if (root->left)
+			operator<<(os, root->left);
+		if (root->right)
+			operator<<(os, root->right);
+	
+	}
+};
+
 
 int count_node(TreeNode *root)
 {
@@ -42,6 +51,9 @@ int count_node(TreeNode *root)
 	return count;
 }
 
+
+
+
 int main()
 {
 	int a[] = {1,2,3,4,5,6,7};
@@ -59,6 +71,6 @@ int main()
 	 * */
 
 	cout << "count node: " << count_node(root) << endl;
-	travel_tree(root);
+	cout << root;
 	return 0;
 }
