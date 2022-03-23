@@ -22,9 +22,30 @@ namespace std {
 	}
 }
 
+bool has_sum_path(TreeNode *root, int sum, int cur_sum)
+{
+	if (!root)
+		return false;
+	if (!root->left && !root->right) {
+		if (cur_sum + root->val == sum) {
+			return true;
+		}
+	}
+	if (root->left) {
+		if(has_sum_path(root->left, sum, cur_sum + root->val))
+			return true;
+	}
+	if (root->right) {
+		if(has_sum_path(root->right, sum, cur_sum + root->val))
+			return true;
+	}
+	return false;
+}
+
 int main()
 {
 	int a[] = {1,2,3,4,5,6,7};
+	int n = 0;
 	TreeNode *root = new TreeNode(a[0]);
 	TreeNode *node1 = new TreeNode(a[1]);
 	TreeNode *node2 = new TreeNode(a[2]);
@@ -42,6 +63,7 @@ int main()
 	 *    2      3
 	 *  4   5  6   7
 	 * */
+	cout << has_sum_path(root, 20, 0) << endl;
 
 
 	cout << root << endl;

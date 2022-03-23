@@ -52,6 +52,7 @@ namespace std {
 	}
 };
 
+
 void func_3_copy()
 {
 	vector<pair<int, string>> v = { {1, "one"},

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -7,6 +8,17 @@ struct TreeNode {
 	TreeNode *left, *right;
 	TreeNode(int v): val(v), left(NULL), right(NULL) {};
 };
+
+void travel_tree(TreeNode *root)
+{
+	if (!root)
+		return ;
+	cout << root->val << '\t';
+	if (root->left)
+		travel_tree(root->left);
+	if (root->right)
+		travel_tree(root->right);
+}
 
 namespace std {
 	ostream& operator<<(ostream &os, TreeNode *root)
@@ -22,9 +34,33 @@ namespace std {
 	}
 }
 
+
+int get_height(TreeNode *root)
+{
+	if (!root)
+		return 0;
+
+	int left_height = get_height(root->left);
+	if (left_height == -1)
+		return -1;
+
+	int right_height = get_height(root->right);
+	if (right_height == -1)
+		return -1;
+
+	return abs(left_height - right_height) <= 1 ? \
+	           1 + max(left_height, right_height) : -1;
+}
+
+bool is_balance_tree(TreeNode *root)
+{
+	return get_height(root) == -1 ? false : true;
+}
+
 int main()
 {
 	int a[] = {1,2,3,4,5,6,7};
+	int n = 0;
 	TreeNode *root = new TreeNode(a[0]);
 	TreeNode *node1 = new TreeNode(a[1]);
 	TreeNode *node2 = new TreeNode(a[2]);
@@ -43,7 +79,8 @@ int main()
 	 *  4   5  6   7
 	 * */
 
+	cout << is_balance_tree(root) << endl;
 
-	cout << root << endl;
+	cout << root;
 	return 0;
 }

@@ -22,9 +22,31 @@ namespace std {
 	}
 }
 
+void __get_left_node_sum(TreeNode *root, int &sum)
+{
+	if (!root)
+		return ;
+	
+	if (root->left && !root->left->left && !root->left->right)
+		sum += root->left->val;
+
+	if (root->left)
+		__get_left_node_sum(root->left, sum);
+	if (root->right)
+		__get_left_node_sum(root->right, sum);
+}
+
+int get_left_node_sum(TreeNode *root)
+{
+	int sum = 0;
+	__get_left_node_sum(root, sum);
+	return sum;
+}
+
 int main()
 {
 	int a[] = {1,2,3,4,5,6,7};
+	int n = 0;
 	TreeNode *root = new TreeNode(a[0]);
 	TreeNode *node1 = new TreeNode(a[1]);
 	TreeNode *node2 = new TreeNode(a[2]);
@@ -43,7 +65,7 @@ int main()
 	 *  4   5  6   7
 	 * */
 
-
+	cout << get_left_node_sum(root) << endl;
 	cout << root << endl;
 	return 0;
 }

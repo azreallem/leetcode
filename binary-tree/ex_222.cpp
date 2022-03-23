@@ -10,10 +10,6 @@ struct TreeNode {
 	TreeNode(int v): val(v), left(NULL), right(NULL) {};
 };
 
-void travel_tree(TreeNode *root)
-{
-}
-
 namespace std {
 	ostream& operator<<(ostream &os, const TreeNode *root)
 	{
@@ -26,10 +22,10 @@ namespace std {
 			operator<<(os, root->right);
 	
 	}
-};
+}
 
 
-int count_node(TreeNode *root)
+int _count_node(TreeNode *root)
 {
 	if (!root)
 		return 0;
@@ -51,7 +47,29 @@ int count_node(TreeNode *root)
 	return count;
 }
 
+int count_node(TreeNode *root)
+{
+	if (!root)
+		return 0;
+	TreeNode *left_node = root->left;
+	TreeNode *right_node = root->right;
+	int left_height = 0;
+	int right_height = 0;
 
+	while (left_node) {
+		left_node = left_node->left;
+		left_height++;
+	}
+	while (right_node) {
+		right_node = right_node->right;
+		right_height++;
+	}
+	
+	if (left_height == right_height)
+		return (2 << left_height) - 1;
+	else
+		return count_node(root->left) + count_node(root->right) + 1;
+}
 
 
 int main()
