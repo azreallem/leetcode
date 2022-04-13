@@ -21,47 +21,33 @@ namespace std {
 }
 
 
-
-int __findMinArrowShots(vector<vector<int>>& points)
-{
-	sort(points.begin(), points.end(), 	\
-	     [](vector<int> a, vector<int> b){	\
-	     	return a[1] < b[1];		\
-	     });
-	int res = 0;
+int __findMinArrowShots(vector<vector<int>>& points) {
+	if (points.size() == 0) return 0;
+	
+	sort(points.begin(), points.end(), 
+	     [](const vector<int>& a, const vector<int>& b) {
+	     return a[0] < b[0];
+	   });
+	
+	int res = 1;
 	int n = points.size();
-
-	for (int i = 0; i < n; i++) {
-		int min_n = points[i][1];
-		if (i+1 < n && points[i+1][0] <= min_n)
-			continue;
-		else
+	for (int i = 1; i < n; i++) {
+		if (points[i][0] > points[i - 1][1])
 			res++;
+		else
+			points[i][1] = min(points[i-1][1], points[i][1]);
+
 	}
 	return res;
 }
 
-int findMinArrowShots(vector<vector<int>>& points)
-{
-	sort(points.begin(), points.end(), 	\
-	     [](vector<int> a, vector<int> b) {	\
-	     	return a[1] > b[1];		\
-	     });
-	int res = 0;
-	int n = points.size();
 
-	for (int i = n - 1; i >= 0; i--) {
-		int min_n = points[i][1];
-		res++;
-		while (i-1 >= 0 && points[i-1][0] <= min_n)
-			i--;
-	}
-	return res;
-}
 
 int main()
 {
-	vector<vector<int>> points = {{1,2},{3,4},{5,6},{7,8}};
+	//vector<vector<int>> points = {{10,16},{2,8},{1,6},{7,12}};
+	vector<vector<int>> points = {{3,9},{7,12},{3,8},{6,8},{9,10},{2,9},{0,9},{3,9},{0,6},{2,8}};
+
 	cout << __findMinArrowShots(points) << endl;
 	return 0;
 }
